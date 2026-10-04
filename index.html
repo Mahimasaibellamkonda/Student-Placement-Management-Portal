@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusHire | Placement Management Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <div class="brand-icon">CH</div>
+        <div>
+            <h2>CampusHire</h2>
+            <span>Placement Management Portal</span>
+        </div>
+    </div>
+
+    <nav>
+        <button class="nav-btn active" data-section="dashboard">Dashboard</button>
+        <button class="nav-btn" data-section="jobs">Job Opportunities</button>
+        <button class="nav-btn" data-section="applications">My Applications</button>
+        <button class="nav-btn" data-section="profile">My Profile</button>
+        <button class="nav-btn" data-section="admin">Placement Cell</button>
+    </nav>
+
+    <div class="user-badge">
+        <div class="avatar">MS</div>
+        <div>
+            <strong>Mahima</strong>
+            <small>CSE Student</small>
+        </div>
+    </div>
+</header>
+
+
+<main>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="section active">
+
+        <div class="hero">
+            <div>
+                <span class="eyebrow">PLACEMENT SEASON 2026</span>
+                <h1>Build your career<br>with the right opportunity.</h1>
+                <p>
+                    Explore verified campus opportunities, check your eligibility,
+                    and track your placement journey from one portal.
+                </p>
+
+                <button class="primary-btn" onclick="showSection('jobs')">
+                    Explore Opportunities →
+                </button>
+            </div>
+
+            <div class="hero-visual">
+                <div class="circle circle-one"></div>
+                <div class="circle circle-two"></div>
+
+                <div class="career-card">
+                    <span>PLACEMENT STATUS</span>
+                    <strong>Active</strong>
+                    <div class="progress">
+                        <div></div>
+                    </div>
+                    <small>4 applications tracked</small>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="stat-box">
+                <span>Total Companies</span>
+                <strong id="totalCompanies">0</strong>
+                <small>Participating recruiters</small>
+            </div>
+
+            <div class="stat-box">
+                <span>Open Positions</span>
+                <strong id="openPositions">0</strong>
+                <small>Available opportunities</small>
+            </div>
+
+            <div class="stat-box">
+                <span>Applications</span>
+                <strong id="totalApplications">0</strong>
+                <small>Your submitted applications</small>
+            </div>
+
+            <div class="stat-box">
+                <span>Shortlisted</span>
+                <strong id="shortlistedCount">0</strong>
+                <small>Current selections</small>
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <span class="section-label">OPPORTUNITIES</span>
+                        <h2>Latest Openings</h2>
+                    </div>
+
+                    <button class="text-btn" onclick="showSection('jobs')">
+                        View all
+                    </button>
+                </div>
+
+                <div id="latestJobs"></div>
+            </div>
+
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <span class="section-label">ACTIVITY</span>
+                        <h2>Application Timeline</h2>
+                    </div>
+                </div>
+
+                <div id="timeline"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- JOBS -->
+    <section id="jobs" class="section">
+
+        <div class="page-header">
+            <div>
+                <span class="eyebrow">OPPORTUNITIES</span>
+                <h1>Find your next opportunity</h1>
+                <p>Search and filter available campus placements.</p>
+            </div>
+        </div>
+
+
+        <div class="filters">
+
+            <input
+                type="text"
+                id="searchJob"
+                placeholder="Search company, role or skill..."
+            >
+
+            <select id="locationFilter">
+                <option value="all">All Locations</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Pune">Pune</option>
+            </select>
+
+            <select id="roleFilter">
+                <option value="all">All Roles</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="Cloud Engineer">Cloud Engineer</option>
+                <option value="Frontend Developer">Frontend Developer</option>
+            </select>
+
+        </div>
+
+
+        <div id="jobsContainer" class="jobs-grid"></div>
+
+    </section>
+
+
+    <!-- APPLICATIONS -->
+    <section id="applications" class="section">
+
+        <div class="page-header">
+            <div>
+                <span class="eyebrow">APPLICATION TRACKER</span>
+                <h1>My Applications</h1>
+                <p>Track every placement application in one place.</p>
+            </div>
+        </div>
+
+        <div class="application-summary">
+
+            <div>
+                <span>Applied</span>
+                <strong id="appliedSummary">0</strong>
+            </div>
+
+            <div>
+                <span>Shortlisted</span>
+                <strong id="shortlistedSummary">0</strong>
+            </div>
+
+            <div>
+                <span>Interviews</span>
+                <strong id="interviewSummary">0</strong>
+            </div>
+
+            <div>
+                <span>Selected</span>
+                <strong id="selectedSummary">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="panel table-panel">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Role</th>
+                            <th>Applied On</th>
+                            <th>Package</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="applicationsTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+    <section id="profile" class="section">
+
+        <div class="page-header">
+            <div>
+                <span class="eyebrow">STUDENT PROFILE</span>
+                <h1>My Career Profile</h1>
+                <p>Keep your academic and professional information updated.</p>
+            </div>
+
+            <button class="primary-btn" onclick="editProfile()">
+                Edit Profile
+            </button>
+        </div>
+
+
+        <div class="profile-layout">
+
+            <div class="profile-card">
+
+                <div class="profile-avatar">MS</div>
+
+                <h2 id="profileName">Mahima Sai Bellamkonda</h2>
+
+                <p>Computer Science & Engineering</p>
+
+                <span class="profile-status">● Placement Eligible</span>
+
+                <div class="profile-contact">
+                    <span>✉ mahima.student@example.com</span>
+                    <span>📍 Chennai, Tamil Nadu</span>
+                </div>
+
+            </div>
+
+
+            <div class="panel details-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <span class="section-label">ACADEMIC DETAILS</span>
+                        <h2>Student Information</h2>
+                    </div>
+                </div>
+
+                <div class="details-grid">
+
+                    <div>
+                        <span>Register Number</span>
+                        <strong id="regNo">PEC2026CSE042</strong>
+                    </div>
+
+                    <div>
+                        <span>Department</span>
+                        <strong>Computer Science & Engineering</strong>
+                    </div>
+
+                    <div>
+                        <span>CGPA</span>
+                        <strong id="cgpa">8.40</strong>
+                    </div>
+
+                    <div>
+                        <span>Backlogs</span>
+                        <strong>0</strong>
+                    </div>
+
+                    <div>
+                        <span>Graduation Year</span>
+                        <strong>2028</strong>
+                    </div>
+
+                    <div>
+                        <span>Placement Status</span>
+                        <strong class="green-text">Eligible</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel skills-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="section-label">TECHNICAL PROFILE</span>
+                    <h2>Skills</h2>
+                </div>
+            </div>
+
+            <div class="skills">
+                <span>Java</span>
+                <span>Python</span>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>SQL</span>
+                <span>Git & GitHub</span>
+                <span>Cloud Fundamentals</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ADMIN -->
+    <section id="admin" class="section">
+
+        <div class="page-header">
+            <div>
+                <span class="eyebrow">PLACEMENT CELL</span>
+                <h1>Recruiter Management</h1>
+                <p>Manage campus opportunities and recruitment information.</p>
+            </div>
+
+            <button class="primary-btn" onclick="openJobModal()">
+                + Add Opportunity
+            </button>
+        </div>
+
+
+        <div class="admin-grid">
+
+            <div class="admin-card">
+                <span>Recruiters</span>
+                <strong id="adminCompanies">0</strong>
+                <small>Companies registered</small>
+            </div>
+
+            <div class="admin-card">
+                <span>Open Roles</span>
+                <strong id="adminJobs">0</strong>
+                <small>Active job openings</small>
+            </div>
+
+            <div class="admin-card">
+                <span>Applications</span>
+                <strong id="adminApplications">0</strong>
+                <small>Total applications</small>
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="section-label">RECRUITMENT DATA</span>
+                    <h2>Available Opportunities</h2>
+                </div>
+            </div>
+
+            <div class="admin-table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Role</th>
+                            <th>Location</th>
+                            <th>Package</th>
+                            <th>Minimum CGPA</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="adminTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- JOB DETAILS MODAL -->
+
+<div id="jobModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close-btn" onclick="closeModal()">×</button>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ADD JOB MODAL -->
+
+<div id="addJobModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close-btn" onclick="closeAddJobModal()">×</button>
+
+        <span class="eyebrow">PLACEMENT CELL</span>
+
+        <h2>Add New Opportunity</h2>
+
+        <p class="modal-description">
+            Add a new company opportunity to the placement portal.
+        </p>
+
+        <form id="jobForm">
+
+            <input id="companyInput" placeholder="Company Name" required>
+
+            <input id="roleInput" placeholder="Job Role" required>
+
+            <select id="locationInput" required>
+                <option value="">Select Location</option>
+                <option>Chennai</option>
+                <option>Bangalore</option>
+                <option>Hyderabad</option>
+                <option>Pune</option>
+            </select>
+
+            <input id="packageInput" placeholder="Package e.g. 7.5 LPA" required>
+
+            <input
+                id="cgpaInput"
+                type="number"
+                step="0.1"
+                min="0"
+                max="10"
+                placeholder="Minimum CGPA"
+                required
+            >
+
+            <input
+                id="skillsInput"
+                placeholder="Required skills e.g. Java, SQL"
+                required
+            >
+
+            <button class="primary-btn" type="submit">
+                Add Opportunity
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
